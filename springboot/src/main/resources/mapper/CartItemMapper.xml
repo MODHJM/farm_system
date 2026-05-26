@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CartItemMapper">
+
+
+    <select id="selectAll" resultType="com.example.entity.CartItem">
+        SELECT id, user_id, product_id, product_name, price, num, image
+        FROM cart_item
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="insert" parameterType="com.example.entity.CartItem" useGeneratedKeys="true">
+        INSERT INTO cart_item (user_id, product_id, product_name, price, num, image)
+        VALUES (#{userId}, #{productId}, #{productName}, #{price}, #{num}, #{image})
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.CartItem">
+        UPDATE cart_item
+        SET num = #{num}
+        WHERE id = #{id}
+    </update>
+
+</mapper>
